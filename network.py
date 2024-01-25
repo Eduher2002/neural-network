@@ -73,22 +73,28 @@ class Network(object):
                 #para cada mini batch se calcula un paso en el descenso del gradiente
                 self.update_mini_batch(mini_batch, eta)
             if test_data:
+                #aqui la verdad no entiendo muy bien profe , pero me parece que el programa escribe las salidas que va obteniendo en cada epoca con su respectivo mini batch.
                 print("Epoch {0}: {1} / {2}".format(
                     j, self.evaluate(test_data), n_test))
             else:
+                #Aqui me parece que el programa interpreta que sino ha terminado una epoca, entonces que la siga ejecutando hasta terminarla. 
                 print("Epoch {0} complete".format(j))
 
     def update_mini_batch(self, mini_batch, eta):
+        #Aqui se comienza el backpropagation, el cual es un metodo para calcular mas rapido el gradiente de la funcion de costo. Pero antes de ello, se calculan los nuevos valores de los pesos y los biases que debe adoptar la funcion de costo para ser minima. 
         """Update the network's weights and biases by applying
         gradient descent using backpropagation to a single mini batch.
         The ``mini_batch`` is a list of tuples ``(x, y)``, and ``eta``
         is the learning rate."""
+        #Inicializa los biases y pesos en ceros
         nabla_b = [np.zeros(b.shape) for b in self.biases]
         nabla_w = [np.zeros(w.shape) for w in self.weights]
         for x, y in mini_batch:
+            #Dado un mini batch, se calcularan las entradas del gradiente de la funcion de costo usando backpropagation. 
             delta_nabla_b, delta_nabla_w = self.backprop(x, y)
             nabla_b = [nb+dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
             nabla_w = [nw+dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
+            #Aqui se modifica el valor de los pesos y los biases que deberian tener para disminuir la funcion de costo
         self.weights = [w-(eta/len(mini_batch))*nw
                         for w, nw in zip(self.weights, nabla_w)]
         self.biases = [b-(eta/len(mini_batch))*nb
@@ -99,6 +105,7 @@ class Network(object):
         gradient for the cost function C_x.  ``nabla_b`` and
         ``nabla_w`` are layer-by-layer lists of numpy arrays, similar
         to ``self.biases`` and ``self.weights``."""
+        #inicializa en ceros
         nabla_b = [np.zeros(b.shape) for b in self.biases]
         nabla_w = [np.zeros(w.shape) for w in self.weights]
         # feedforward
