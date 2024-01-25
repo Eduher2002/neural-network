@@ -121,9 +121,9 @@ class Network(object):
             activations.append(activation) #Analogamente se agregan elementos al final de esta lista, dicha lista es la salida de la funcion de activacion (la cual a su vez es un vector)
         # backward pass
         delta = self.cost_derivative(activations[-1], y) * \
-            sigmoid_prime(zs[-1])
-        nabla_b[-1] = delta
-        nabla_w[-1] = np.dot(delta, activations[-2].transpose())
+            sigmoid_prime(zs[-1]) 
+        nabla_b[-1] = delta #Este es el elemento del gradiente de la funcion de costo con respecto a b, el -1 indica que se comienza a partir del ultimo elemento de la lista, pues recordemos que el backpropagation va hacia atras usando la regla de la cadena. 
+        nabla_w[-1] = np.dot(delta, activations[-2].transpose()) #Este es el analogo de nabla_b, solo que se coloca la operacion de transpuesta por la comodidad de los indices. 
         # Note that the variable l in the loop below is used a little
         # differently to the notation in Chapter 2 of the book.  Here,
         # l = 1 means the last layer of neurons, l = 2 is the
@@ -155,8 +155,8 @@ class Network(object):
 #### Miscellaneous functions
 def sigmoid(z):
     """The sigmoid function."""
-    return 1.0/(1.0+np.exp(-z))
+    return 1.0/(1.0+np.exp(-z)) #forma explicita de la funcion sigmoide
 
 def sigmoid_prime(z):
     """Derivative of the sigmoid function."""
-    return sigmoid(z)*(1-sigmoid(z))
+    return sigmoid(z)*(1-sigmoid(z)) #Se expresa mas convenientemente la derivada de la funcion de activacion 
