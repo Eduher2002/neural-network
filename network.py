@@ -56,17 +56,21 @@ class Network(object):
         epoch, and partial progress printed out.  This is useful for
         tracking progress, but slows things down substantially."""
         if test_data:
+            #Comienza a decir cuandos datos de entrenamiento se tendran en cuenta para el entrenamiento de la red. 
             test_data = list(test_data)
             n_test = len(test_data)
 
         training_data = list(training_data)
         n = len(training_data)
         for j in range(epochs):
+            #Comienza a iterar en el rango del numero de epocas y digamos que "barajea o reorganiza" los datos de entrada del minibatch, o los datos de entrenamiento aleatorios
             random.shuffle(training_data)
+            #Aqui define el tamaño de los mini batches, y cada que se termina una epoca se vuelven a evaluar con otros valores aleatorios de otro minibatch, o sea de otro conjunto de entradas aleatorias.
             mini_batches = [
                 training_data[k:k+mini_batch_size]
                 for k in range(0, n, mini_batch_size)]
             for mini_batch in mini_batches:
+                #para cada mini batch se calcula un paso en el descenso del gradiente
                 self.update_mini_batch(mini_batch, eta)
             if test_data:
                 print("Epoch {0}: {1} / {2}".format(
