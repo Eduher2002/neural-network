@@ -32,18 +32,21 @@ class Network(object):
         #Se establece el numero de neuronas que tendra cada capa de la red neuronal
         self.num_layers = len(sizes)
         self.sizes = sizes
+        #se generan numeros aleatorios para los biases y los pesos de cada neurona sigmoide 
         self.biases = [np.random.randn(y, 1) for y in sizes[1:]]
         self.weights = [np.random.randn(y, x)
                         for x, y in zip(sizes[:-1], sizes[1:])]
 
     def feedforward(self, a):
         """Return the output of the network if ``a`` is input."""
+        #Aqui se define la funcion sigmoide (la salida y/o entrada que tendra cada neurona) con ayuda de los pesos y los biases generados en el paso anterior
         for b, w in zip(self.biases, self.weights):
             a = sigmoid(np.dot(w, a)+b)
         return a
 
     def SGD(self, training_data, epochs, mini_batch_size, eta,
             test_data=None):
+            #Aqui comienza el SGD, se llama a los datos de entrenamiento, dichos datos en conjunto forman el mini batch, una vez que se terminen los datos de entrenamiento de un mini batch se cumplira una epoca, tambien se define el eta que se usara para re-definir los pesos y los biases.
         """Train the neural network using mini-batch stochastic
         gradient descent.  The ``training_data`` is a list of tuples
         ``(x, y)`` representing the training inputs and the desired
