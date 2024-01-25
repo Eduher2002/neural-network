@@ -113,10 +113,12 @@ class Network(object):
         activations = [x] # list to store all the activations, layer by layer
         zs = [] # list to store all the z vectors, layer by layer
         for b, w in zip(self.biases, self.weights):
+            #Se dice como esta representado el argumento de cada sigmoide, es decir, el numero que ingresa a la funcion de activacion.
+            #Se expresa como el producto punto, pues w y x en realidad son vectores 
             z = np.dot(w, activation)+b
-            zs.append(z)
-            activation = sigmoid(z)
-            activations.append(activation)
+            zs.append(z) #Aqui agrega elementos al final de dicha lista
+            activation = sigmoid(z) #Se reconoce la funcion de activacion como la funcion sigmoide 
+            activations.append(activation) #Analogamente se agregan elementos al final de esta lista, dicha lista es la salida de la funcion de activacion (la cual a su vez es un vector)
         # backward pass
         delta = self.cost_derivative(activations[-1], y) * \
             sigmoid_prime(zs[-1])
