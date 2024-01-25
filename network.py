@@ -29,6 +29,7 @@ class Network(object):
         layer is assumed to be an input layer, and by convention we
         won't set any biases for those neurons, since biases are only
         ever used in computing the outputs from later layers."""
+        #Se establece el numero de neuronas que tendra cada capa de la red neuronal
         self.num_layers = len(sizes)
         self.sizes = sizes
         self.biases = [np.random.randn(y, 1) for y in sizes[1:]]
