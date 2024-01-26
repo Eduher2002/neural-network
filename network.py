@@ -133,10 +133,10 @@ class Network(object):
         for l in range(2, self.num_layers):
             z = zs[-l]
             sp = sigmoid_prime(z)
-            delta = np.dot(self.weights[-l+1].transpose(), delta) * sp
-            nabla_b[-l] = delta
+            delta = np.dot(self.weights[-l+1].transpose(), delta) * sp #Este es el cambio en la salida de la l-esima capa
+            nabla_b[-l] = delta #Aqui unicamente se define la omponente del gradiente de la funcion de costo respecto de los biases.
             nabla_w[-l] = np.dot(delta, activations[-l-1].transpose())
-        return (nabla_b, nabla_w)
+        return (nabla_b, nabla_w) # Aqui devuelve las componentes del vector gradiente de la funcion de costo. 
 
     def evaluate(self, test_data):
         """Return the number of test inputs for which the neural
