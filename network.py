@@ -130,12 +130,12 @@ class Network(object):
         # second-last layer, and so on.  It's a renumbering of the
         # scheme in the book, used here to take advantage of the fact
         # that Python can use negative indices in lists.
-        for l in range(2, self.num_layers):
+        for l in range(2, self.num_layers): #Define el corrimiento de la l, el indice l corre sobre el numero de capas que tiene la red neuronal. 
             z = zs[-l]
-            sp = sigmoid_prime(z)
+            sp = sigmoid_prime(z) #Se guarda la funcion de la derivada de la funcion sigmoide en la variable sp
             delta = np.dot(self.weights[-l+1].transpose(), delta) * sp #Este es el cambio en la salida de la l-esima capa
             nabla_b[-l] = delta #Aqui unicamente se define la omponente del gradiente de la funcion de costo respecto de los biases.
-            nabla_w[-l] = np.dot(delta, activations[-l-1].transpose())
+            nabla_w[-l] = np.dot(delta, activations[-l-1].transpose()) #Aqui se expreso la funcion a la que llegamos en clase, es decir, la entrada del vector del gradiente d ela funcion de costo respecto de los pesos como el producto entre las matrices de las salidas de las neuronas de cada capa con la matriz de los cambios en la j-esima neurona de la l-esima capa
         return (nabla_b, nabla_w) # Aqui devuelve las componentes del vector gradiente de la funcion de costo. 
 
     def evaluate(self, test_data):
@@ -144,7 +144,7 @@ class Network(object):
         network's output is assumed to be the index of whichever
         neuron in the final layer has the highest activation."""
         test_results = [(np.argmax(self.feedforward(x)), y)
-                        for (x, y) in test_data]
+                        for (x, y) in test_data] #En estos pasos evalua la efectividad de la red neuronal a traves del test data
         return sum(int(x == y) for (x, y) in test_results)
 
     def cost_derivative(self, output_activations, y):
