@@ -81,7 +81,7 @@ class Network(object):
                 print("Epoch {0} complete".format(j))
 
     def update_mini_batch(self, mini_batch, eta):
-        #Aqui se comienza el backpropagation, el cual es un metodo para calcular mas rapido el gradiente de la funcion de costo. Pero antes de ello, se calculan los nuevos valores de los pesos y los biases que debe adoptar la funcion de costo para ser minima. 
+    
         """Update the network's weights and biases by applying
         gradient descent using backpropagation to a single mini batch.
         The ``mini_batch`` is a list of tuples ``(x, y)``, and ``eta``
@@ -89,9 +89,9 @@ class Network(object):
         #Inicializa los biases y pesos en ceros
         nabla_b = [np.zeros(b.shape) for b in self.biases]
         nabla_w = [np.zeros(w.shape) for w in self.weights]
-        for x, y in mini_batch:
+        for x, y in mini_batch: #Para cada dato de la lista de tuplas (x,y) se calcula el gradiente en ese punto para esa b y ese peso en especifico. 
             #Dado un mini batch, se calcularan las entradas del gradiente de la funcion de costo usando backpropagation. 
-            delta_nabla_b, delta_nabla_w = self.backprop(x, y)
+            delta_nabla_b, delta_nabla_w = self.backprop(x, y) #aqui manda a llamar a la funcion backprop (la cual se define abajo) y guarda los resultados de las tuplas dadas por el backprop en las variables nabla_b y nabla_w
             nabla_b = [nb+dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
             nabla_w = [nw+dnw for nw, dnw in zip(nabla_w, delta_nabla_w)]
             #Aqui se modifica el valor de los pesos y los biases que deberian tener para disminuir la funcion de costo
@@ -117,7 +117,7 @@ class Network(object):
             #Se expresa como el producto punto, pues w y x en realidad son vectores 
             z = np.dot(w, activation)+b
             zs.append(z) #Aqui agrega elementos al final de dicha lista
-            activation = sigmoid(z) #Se reconoce la funcion de activacion como la funcion sigmoide 
+            activation = sigmoid(z) #Se reconoce la funcion de activacion como la funcion sigmoide cuyo argumento es la variable z, la cual ya esta definida arriba 
             activations.append(activation) #Analogamente se agregan elementos al final de esta lista, dicha lista es la salida de la funcion de activacion (la cual a su vez es un vector)
         # backward pass
         delta = self.cost_derivative(activations[-1], y) * \
