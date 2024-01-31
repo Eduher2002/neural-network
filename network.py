@@ -64,16 +64,16 @@ class Network(object):
         n = len(training_data) #Aqui guarda en la variable n el numero de datos de entrenamiento. 
         for j in range(epochs):
             #Comienza a iterar en el rango del numero de epocas y digamos que "barajea o reorganiza" los datos de entrada del minibatch, o los datos de entrenamiento aleatorios
-            random.shuffle(training_data)
+            random.shuffle(training_data) #Se general los datos del mini batch aleatorios, estos datos recordemos que son de entrenamiento.
             #Aqui define el tamaño de los mini batches, y cada que se termina una epoca se vuelven a evaluar con otros valores aleatorios de otro minibatch, o sea de otro conjunto de entradas aleatorias.
             mini_batches = [
-                training_data[k:k+mini_batch_size]
-                for k in range(0, n, mini_batch_size)]
+                training_data[k:k+mini_batch_size] # Aqui se dice con cuantos minibatches se va a trabajar, pues recordemos que todo el conjunto de entradas se divide en pequeñas muestras de datos de entrada aleatorios 
+                for k in range(0, n, mini_batch_size)] 
             for mini_batch in mini_batches:
                 #para cada mini batch se calcula un paso en el descenso del gradiente
                 self.update_mini_batch(mini_batch, eta)
             if test_data:
-                #aqui la verdad no entiendo muy bien profe , pero me parece que el programa escribe las salidas que va obteniendo en cada epoca con su respectivo mini batch.
+                #aqui la verdad no entiendo muy bien profe , pero me parece que el programa escribe los resultados que va obteniendo en cada epoca con su respectivo mini batch.
                 print("Epoch {0}: {1} / {2}".format(
                     j, self.evaluate(test_data), n_test))
             else:
