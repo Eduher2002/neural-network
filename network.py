@@ -159,4 +159,4 @@ def sigmoid(z):
 
 def sigmoid_prime(z):
     """Derivative of the sigmoid function."""
-    return sigmoid(z)*(1-sigmoid(z)) #Se expresa mas convenientemente la derivada de la funcion de activacion 
+    return sigmoid(z)*(1-sigmoid(z)) #Se expresa mas convenientemente la derivada de la funcion de activacion. 
