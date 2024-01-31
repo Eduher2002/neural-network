@@ -45,7 +45,7 @@ class Network(object):
         return a
 
     def SGD(self, training_data, epochs, mini_batch_size, eta,
-            test_data=None):
+            test_data=None): #Estas son las variables con las que va a trabajar en esta sección SGD del código 
             #Aqui comienza el SGD, se llama a los datos de entrenamiento, dichos datos en conjunto forman el mini batch, una vez que se terminen los datos de entrenamiento de un mini batch se cumplira una epoca, tambien se define el eta que se usara para re-definir los pesos y los biases.
         """Train the neural network using mini-batch stochastic
         gradient descent.  The ``training_data`` is a list of tuples
@@ -58,10 +58,10 @@ class Network(object):
         if test_data:
             #Comienza a decir cuandos datos de entrenamiento se tendran en cuenta para el entrenamiento de la red. 
             test_data = list(test_data)
-            n_test = len(test_data)
+            n_test = len(test_data) #guarda en la variable n_test el numero de datos de prueba
 
         training_data = list(training_data)
-        n = len(training_data)
+        n = len(training_data) #Aqui guarda en la variable n el numero de datos de entrenamiento. 
         for j in range(epochs):
             #Comienza a iterar en el rango del numero de epocas y digamos que "barajea o reorganiza" los datos de entrada del minibatch, o los datos de entrenamiento aleatorios
             random.shuffle(training_data)
